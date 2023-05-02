@@ -1,19 +1,21 @@
-import { readFileSync } from 'fs';
+import fs from 'fs';
 import path from 'path';
 import buildTree from './buildTree.js';
-import getParse from './parsers.js';
-import generationFormat from '../formatters/index.js';
+import format from './formatters/index.js';
+import parse from './parsers.js'
 
-const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
-  const fixturesPath1 = path.resolve('__fixtures__', filepath1);
-  const fixturesPath2 = path.resolve('__fixtures__', filepath2);
-  const content1 = readFileSync(fixturesPath1, 'utf8');
-  const content2 = readFileSync(fixturesPath2, 'utf8');
-  const fileEnd1 = path.extname(filepath1);
-  const fileEnd2 = path.extname(filepath2);
-  const obj1 = getParse(content1, fileEnd1);
-  const obj2 = getParse(content2, fileEnd2);
-  const nodes = buildTree(obj1, obj2);
-  return generationFormat(nodes, formatName);
+const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
+const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
+const getFormat = (filename) => filename.split('.')[1];
+
+const genDiff = (file1, file2, formatName = 'stylish') => {
+  const data1 = readFile(file1);
+  const data2 = readFile(file2);
+  const parsed1 = parse(data1, getFormat(file1));
+  const parsed2 = parse(data2, getFormat(file2));
+  const data = buildTree(parsed1, parsed2);
+
+  return format(data, formatName);
 };
+
 export default genDiff;
