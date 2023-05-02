@@ -16,6 +16,6 @@ const format = (data, formatName) => {
     default:
       throw new Error('Invalid format');
   }
-}
+};
 
 export default format;
