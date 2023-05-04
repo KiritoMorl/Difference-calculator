@@ -34,7 +34,7 @@ To select a format, use the -f flag and the format name.
     gendiff -f json <filepath1>, <filepath2>
 
 ### Usage
-____
+
 #### Differences between json files in the default stylish format.
 ____
 <a href="https://asciinema.org/a/x64HqyR1cFysQEr9PALxGbcqn" target="_blank"><img src="https://asciinema.org/a/x64HqyR1cFysQEr9PALxGbcqn.svg" /></a>
