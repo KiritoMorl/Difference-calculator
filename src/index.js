@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import buildTree from './buildTree.js';
-import format from './formatters/index.js';
+import getFormattedContent from './formatters/index.js';
 import parse from './parsers.js';
 
 const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
 const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
-const getFormat = (filename) => filename.split('.')[1];
+const getFormat = (filename) => path.extname(filename);
 
 const genDiff = (file1, file2, formatName = 'stylish') => {
   const data1 = readFile(file1);
@@ -15,7 +15,7 @@ const genDiff = (file1, file2, formatName = 'stylish') => {
   const parsed2 = parse(data2, getFormat(file2));
   const data = buildTree(parsed1, parsed2);
 
-  return format(data, formatName);
+  return getFormattedContent(data, formatName);
 };
 
 export default genDiff;
