@@ -3,15 +3,10 @@ import path from 'path';
 import genDiff from '../src/index.js';
 
 const fileExt = ['.json', '.yml'];
-
-const resultStylish = fs.readFileSync(
-  path.resolve(process.cwd(), '__fixtures__/result_stylish.txt'),
-  'utf-8',
-);
-const resultPlain = fs.readFileSync(
-  path.resolve(process.cwd(), '__fixtures__/result_plain.txt'),
-  'utf-8',
-);
+const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
+const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
+const resultStylish = readFile('__fixtures__/result_stylish.txt');
+const resultPlain = readFile('__fixtures__/result_plain.txt');
 
 test.each(fileExt)('testing different file options', (extension) => {
   const fileBefore = `__fixtures__/file1${extension}`;
