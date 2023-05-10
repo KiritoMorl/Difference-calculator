@@ -2,8 +2,8 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 import json from './json.js';
 
-const format = (data, formatName) => {
-  switch (formatName) {
+const getFormattedContent = (data, format) => {
+  switch (format) {
     case 'stylish': {
       return stylish(data);
     }
@@ -14,8 +14,8 @@ const format = (data, formatName) => {
       return json(data);
     }
     default:
-      throw new Error('Invalid format');
+      throw new Error(`Format ${format} is not supported`);
   }
 };
 
-export default format;
+export default getFormattedContent;
