@@ -4,8 +4,8 @@ import buildTree from './buildTree.js';
 import getFormattedContent from './formatters/index.js';
 import parse from './parsers.js';
 
-const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
-const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
+const getAbsolutPath = (filepath) => path.resolve('__fixtures__', filepath);
+const readFile = (filepath) => fs.readFileSync(filepath, 'utf-8');
 const getFormat = (filename) => path.extname(filename);
 
 const genDiff = (file1, file2, formatName = 'stylish') => {
